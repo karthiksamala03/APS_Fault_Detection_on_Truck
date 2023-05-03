@@ -13,5 +13,21 @@ def get_collection_as_dataframe(database_name:str, collection_name:str)->pd.Data
     except Exception as e:
         raise SensorException(e, sys)
 
-# if __name__=="__main__":
-#     get_collection_as_dataframe("aps", "sensor")
+def convert_column_to_float(df:pd.DataFrame, exclude_column:list)->pd.DataFrame:
+    try:
+        for col in df.columns:
+            if col not in exclude_column:
+                df[col] = df[col].astype('float')
+
+        return df
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def write_to_ymal(file_path:str, data:dict):
+    try:
+        file_dir = os.path.dirname(file_path)
+        os.makedirs(file_dir, exist_ok=True)
+        with open(file_path,"w") as file_writer:
+            ymal.dump(data,file_writer)
+    except Exception as e:
+        SensorException(e, sys)
