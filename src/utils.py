@@ -3,6 +3,8 @@ from src.logger import logging
 from src.config import mongo_client
 import os, sys
 import pandas as pd
+import numpy as np
+import dill
 
 def get_collection_as_dataframe(database_name:str, collection_name:str)->pd.DataFrame:
     try:
@@ -31,3 +33,41 @@ def write_to_ymal(file_path:str, data:dict):
             ymal.dump(data,file_writer)
     except Exception as e:
         SensorException(e, sys)
+
+def save_numpy_arr_data(file_path:str, array:np.array):
+    try:
+        dir = os.path.dirname(file_path)
+        os.makedirs(dir, exist_ok=True)
+        with open(file_path,"wb") as file_obj:
+            np.save(file=file_obj, arr=array)
+
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def save_object(file_path:str, obj:object)-> None:
+    try:
+        dir = os.path.dirname(file_path)
+        os.makedirs(dir, exist_ok=True)
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def load_numpy_arr_data(file_path:str)->np.array:
+    try:
+        if not os.path.exists(path=file_path):
+            raise Exception(f"The file : {file_path} not exist")
+        with open(file_path, "rb") as file_obj:
+            return np.load(file=file_obj)
+    except Exception as e:
+        raise SensorException(e, sys)
+
+def load_object(file_path:str)->object:
+    try:
+        if not os.path.exists(path=file_path):
+            raise Exception(f"The object: {file_path} not exist")
+        with open(file_path, "rb") as file_obj:
+            return dill.load(file=file_obj)
+    except Exception as e:
+        raise SensorException(e, sys)

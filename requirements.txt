@@ -3,5 +3,8 @@ numpy
 matplotlib
 seaborn
 pymongo
+scipy
 scikit-learn
+imblearn
+dill
 #-e .

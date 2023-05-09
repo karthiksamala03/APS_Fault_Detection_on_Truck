@@ -5,6 +5,8 @@ from datetime import datetime
 FILE_NAME = "sensor.csv"
 TRAIN_FILE_NAME = "trian.csv"
 TEST_FILE_NAME = "test.csv"
+TRANSFORMER_OBJECT_FILE_NAME="transformer.pkl"
+TARGET_ENCODER_OBJECT_FILE_NAME="target_encoder.pkl"
 
 class TrainingPipelineConfig:
     def __init__(self):
@@ -30,9 +32,21 @@ class DataIngestionConfig:
 class DataValidationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig()):
         try:
-            self.datavalidation_dir = os.path.join(training_pipeline_config.artifact_dir,"datavalidation")
+            self.datavalidation_dir = os.path.join(training_pipeline_config.artifact_dir,"data_validation")
             self.report_file_path = os.path.join(self.datavalidation_dir,"report_file_path")
             self.missing_threshold:float = 0.2
             self.base_file_path="aps_failure_training_set1.csv"
         except Exception as e:
             raise SensorException(e, sys)
+
+class DataTransformationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        try:
+            self.data_transformation_dir = os.path.join(training_pipeline_config.artifact_dir,"data_transformation")
+            self.transform_object_path = os.path.join(self.data_transformation_dir,"transformer",TRANSFORMER_OBJECT_FILE_NAME)
+            self.transformed_train_path=os.path.join(self.data_transformation_dir,"transformed",TRAIN_FILE_NAME.replace("csv","npz"))
+            self.transformed_test_path=os.path.join(self.data_transformation_dir,"transformed",TEST_FILE_NAME.replace("csv","npz"))
+            self.target_encoder_path = os.path.join(self.data_transformation_dir,"target_encoder",TARGET_ENCODER_OBJECT_FILE_NAME)
+        except Exception as e:
+            raise SensorException(e, sys)
+            
