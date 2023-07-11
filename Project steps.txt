@@ -1,0 +1,102 @@
+
+Step 1 : Create a github repository. 
+		Don't click on anything just give repository name and create it
+
+Step 2 : Creating Folder and opening VS code IDE
+	1. Open Anaconda promt in Windows local
+	2. Command 1: cd E:\Data Science\ML_PROJECT\APS_Fault_Detection_on_Truck
+	3. Command 2: E:
+	3. Command 3: code .
+	
+Step 3 : Creating Python Environment
+	1. conda create -p venv python==3.8 -y
+	2. conda activate venv/
+	
+Step 4 : Configuring with GIthub
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git branch -M main
+	git remote add origin https://github.com/karthiksamala03/APS_Fault_Detection_on_Truck.git
+
+	git config --global user.name "karthiksamala03"
+	git config --global user.email karthiksamala03@gmail.com
+
+	git push -u origin main
+	
+Refresh git repository to see latest changes
+
+Step 5: Creating .gitignore file on github
+	1. Open Git hub and click create new file (.gitignore) and choose language
+	2. click on commit changes
+	3. pull the changes to local using command : git pull
+	
+Step 6: Create setup.py and requirements.txt
+
+Create setup.py, requirements.txt and src->__init__.py files manually
+
+Setup.py and requirements.txt code references:
+https://neurolab.ineuron.ai/my-labs
+https://red-butcher-jwtvw.ineuron.app/?folder=/config/workspace
+
+On local :
+E:\Data Science\ML_PROJECT\APS_Fault_Detection_on_Truck
+
+Once both are built, run command: pip install -r requirements.txt
+
+sensor.egg-info folder get created
+
+git add .
+git status
+git commit -m "setup"
+git push -u origin main
+
+Step 7: Creating folders inside src folder
+	0. create __init__  add below code 
+		from dotenv import load_dotenv
+		print("loading environmental variables from .env folder")
+		load_dotenv()
+	1. component
+		1. __init__.py
+		2. data_ingestion.py
+		3. data_validation.py
+		4. data_transformation.py
+		5. model_trainer.py
+		6. model_evaluation.py
+		7. model_pusher.py
+	
+	2. entity
+		1. __init__.py
+		2. artifact_entity.py
+		3. config_entity.py
+		
+	3. pipeline
+		1. __init__.py
+		2. training_pipeline.py
+		3. batch_prediction.py
+	
+	4. logger.py
+	5. exception.py
+	6. utils.py
+		
+Step 8: Write exception and logging code
+code references:
+https://neurolab.ineuron.ai/my-labs
+https://red-butcher-jwtvw.ineuron.app/?folder=/config/workspace
+
+On local :
+E:\Data Science\ML_PROJECT\APS_Fault_Detection_on_Truck
+
+Step 9: Create .env file to store MongoDB url, user, password and AWS details
+	1. Create Variable MongoDB_url in .env file
+	
+Step 10: Create config.py in src folder to get all env variables using getenv() method
+
+Step 11: Create utils.py in src folder to get connect to mongodb and get data
+
+Step 12: list all inputs for dataingestion config
+
+Step 11: write code in dataingestion.py in components folder
+
+Step 12: list all outputs for dataingestion artifacts
+

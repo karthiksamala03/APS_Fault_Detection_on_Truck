@@ -1,5 +1,6 @@
 from src.exception import SensorException
 from src.logger import logging
+from src import utils
 import os,sys
 from src.entity.config_entity import DataIngestionConfig
 from src.entity.artifact_entity import DataIngestionArtifact
@@ -17,9 +18,15 @@ class DataIngestion:
 
     def initiate_data_ingestion(self,)-> DataIngestionArtifact:
         try:
-            logging.info("loading data from csv file")
-            df:pd.DataFrame = pd.read_csv("aps_failure_training_set1.csv")
-            
+            # logging.info("loading data from csv file")
+            # df:pd.DataFrame = pd.read_csv("aps_failure_training_set1.csv")
+
+            logging.info("Exporting collection data as pandas Dataframe")
+            #Exporting collection data as pandas Dataframe
+            df:pd.DataFrame = utils.get_collection_as_dataframe(
+                database_name=self.data_ingestion_config.database_name, 
+                collection_name=self.data_ingestion_config.collection_name)
+
             logging.info("replacing na with np.NAN")
             df.replace(to_replace='na', value=np.NAN, inplace=True)
 
