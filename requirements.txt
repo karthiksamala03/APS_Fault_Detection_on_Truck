@@ -8,4 +8,5 @@ scikit-learn
 imblearn
 dill
 python-dotenv
+xgboost
 #-e .

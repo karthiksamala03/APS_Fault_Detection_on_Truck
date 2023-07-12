@@ -7,6 +7,7 @@ TRAIN_FILE_NAME = "trian.csv"
 TEST_FILE_NAME = "test.csv"
 TRANSFORMER_OBJECT_FILE_NAME="transformer.pkl"
 TARGET_ENCODER_OBJECT_FILE_NAME="target_encoder.pkl"
+MODEL_FILE_NAME = "model.pkl"
 
 class TrainingPipelineConfig:
     def __init__(self):
@@ -50,3 +51,10 @@ class DataTransformationConfig:
         except Exception as e:
             raise SensorException(e, sys)
             
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config:TrainingPipelineConfig):
+        self.model_trainer_dir = os.path.join(training_pipeline_config.artifact_dir, "model_trainer")
+        self.model_path = os.path.join(self.model_trainer_dir, "Model", MODEL_FILE_NAME)
+        self.excepted_score = 0.7
+        self.overfitting_threshold = 0.1
+
