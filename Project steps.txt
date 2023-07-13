@@ -100,3 +100,7 @@ Step 11: write code in dataingestion.py in components folder
 
 Step 12: list all outputs for dataingestion artifacts
 
+
+In case to activate vertual envinorment manually:
+C:/Users/use/anaconda3/Scripts/activate
+conda activate "e:\Data Science\ML_PROJECT\APS_Fault_Detection_on_Truck\venv"
